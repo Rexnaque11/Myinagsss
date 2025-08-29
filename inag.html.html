@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inagggsss</title>
+  <style>
+    :root {
+      --accent: #ff4081;
+      --bg1: #fff0f6;
+      --bg2: #ffe6f0;
+      --card: #ffffff;
+    }
+    body {
+      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+    .container {
+      background: var(--card);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      animation: float 3s ease-in-out infinite;
+      max-width: 600px;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% {transform: translateY(-10px);} }
+
+    h1 {
+      font-size: 2rem;
+      background: linear-gradient(90deg, #ff7e9d, var(--accent));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow { from {text-shadow:0 0 10px rgba(255,64,129,0.3);} to {text-shadow:0 0 20px rgba(255,64,129,0.7);} }
+
+    .message-box {
+      margin:20px auto;
+      padding:16px;
+      background:#fff7fa;
+      border-radius:16px;
+      min-height:80px;
+      font-size:1.2rem;
+      color:#333;
+      box-shadow: inset 0 0 10px rgba(255,64,129,0.1);
+    }
+    button {
+      margin:6px;
+      padding:10px 16px;
+      border:none;
+      border-radius:12px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition: transform .3s, box-shadow .3s;
+      box-shadow:0 4px 14px rgba(255,64,129,0.4);
+    }
+    button:hover { transform: scale(1.08); box-shadow:0 6px 20px rgba(255,64,129,0.6); }
+
+    /* floating sparkles */
+    .sparkle {
+      position:absolute;
+      width:6px; height:6px;
+      background:#fff;
+      border-radius:50%;
+      animation: twinkle 4s infinite;
+      opacity:0;
+    }
+    @keyframes twinkle {
+      0%{ transform:translateY(0); opacity:0; }
+      20%{ opacity:1; }
+      100%{ transform:translateY(-200px); opacity:0; }
+    }
+
+    /* hearts burst */
+    .heart {
+      position: absolute;
+      color: var(--accent);
+      font-size:24px;
+      animation: rise 3s linear forwards;
+    }
+    @keyframes rise { from { transform:translateY(0) scale(0.8); opacity:1; } to { transform:translateY(-300px) scale(1.5); opacity:0; } }
+
+    /* typing effect */
+    .typing { border-right: 2px solid var(--accent); white-space: nowrap; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <!-- Background Song -->
+  <audio id="bgSong" autoplay loop>
+    <source src="inags.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="container">
+    <h1>💖 Hello My Sheena 💖</h1>
+    <div class="message-box" id="message">Click a button and let the magic happen ✨</div>
+    <div>
+      <button id="btnCompliment">Compliment</button>
+      <button id="btnRoses">🌹 Roses</button>
+      <button id="btnLetter">💌 Love Letter</button>
+      <button id="btnSurprise">🎉 Surprise</button>
+      <button id="btnMelody">🎶 Melody</button>
+      <button id="btnSong">▶️ Play/Pause Song</button>
+    </div>
+  </div>
+
+  <script>
+    const message=document.getElementById('message');
+    const compliments=[
+      "Blessing ka sa ako ni lord. 🌟",
+      "Thankyou kay naka ila tika loveyouu bibi. ✨",
+      "You are my sweetest blessing. 💕",
+      "I admire how intelligent and thoughful you are. 💖"
+    ];
+
+    function typeEffect(text){
+      let i=0; message.textContent='';
+      message.classList.add('typing');
+      const interval=setInterval(()=>{
+        message.textContent=text.slice(0,i);
+        i++;
+        if(i>text.length){ clearInterval(interval); message.classList.remove('typing'); }
+      },60);
+    }
+
+    function burstHearts(count=8){
+      for(let i=0;i<count;i++){
+        const heart=document.createElement('div');
+        heart.className='heart';
+        heart.textContent='❤';
+        heart.style.left=Math.random()*100+'vw';
+        heart.style.bottom='20px';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),3000);
+      }
+    }
+
+    function sparkleBackground(){
+      for(let i=0;i<10;i++){
+        const sp=document.createElement('div');
+        sp.className='sparkle';
+        sp.style.left=Math.random()*100+'vw';
+        sp.style.top=(100+Math.random()*50)+'vh';
+        sp.style.animationDuration=(2+Math.random()*3)+'s';
+        document.body.appendChild(sp);
+        setTimeout(()=>sp.remove(),5000);
+      }
+    }
+
+    document.getElementById('btnCompliment').onclick=()=>{
+      typeEffect(compliments[Math.floor(Math.random()*compliments.length)]);
+      burstHearts(); sparkleBackground();
+    }
+    document.getElementById('btnRoses').onclick=()=>{
+      typeEffect('🌹🌹🌹 A thousand roses just for you, my love.');
+      burstHearts(12);
+    }
+    document.getElementById('btnLetter').onclick=()=>{
+      typeEffect('Iloveyou Iloveyou Iloveyou Iloveyou so much bibi. 💌');
+      burstHearts(15);
+    }
+    document.getElementById('btnSurprise').onclick=()=>{
+      typeEffect('🎉 Surprise! Life with you is the best celebration. 🥰');
+      sparkleBackground(); burstHearts(20);
+    }
+    document.getElementById('btnMelody').onclick=()=>{
+      typeEffect('🎶 This song is only for you...');
+      burstHearts(10);
+      try{
+        const AudioCtx=window.AudioContext||window.webkitAudioContext; const ac=new AudioCtx();
+        const notes=[440,523.25,659.25,784,659.25,523.25,440];
+        let t=ac.currentTime;
+        notes.forEach((n,i)=>{
+          const o=ac.createOscillator(); const g=ac.createGain();
+          o.type='sine'; o.frequency.value=n; g.gain.value=0.08;
+          o.connect(g); g.connect(ac.destination);
+          o.start(t+i*0.35); o.stop(t+i*0.35+0.3);
+        });
+      }catch(e){alert('Audio not supported.');}
+    }
+
+    // Background Song Control
+    const bgSong=document.getElementById('bgSong');
+    document.getElementById('btnSong').onclick=()=>{
+      if(bgSong.paused){ bgSong.play(); } else { bgSong.pause(); }
+    }
+  </script>
+</body>
+</html>
